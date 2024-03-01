@@ -1,0 +1,13 @@
+FOLDER_IN: /home/user2/tst
+FOLDER_OUT: /home/user2/out
+FOLDER_EXTRACT: /home/user2/folder1
+FOLDER_EXTRACT2: /home/user2/folder_test
+count: 3
+size: 5M
+extension: zip
+host: 0.0.0.0
+user: user2
+passwd: qqq
+local_path: tests/p7zip-full.deb
+remote_path: /home/user2/p7zip-full.deb
+package_name: p7zip-full
