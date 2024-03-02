@@ -1,6 +1,6 @@
 from checkers import negative_checkout
 import yaml
-from sshcheckers import upload_files, ssh_checkout
+from sshcheckers import upload_files, ssh_checkout, ssh_negative_checkout
 
 with open('config.yaml') as f:
     data = yaml.safe_load(f)
@@ -20,14 +20,14 @@ class TestNegative:
         assert all(res), "test0 FAIL"
 
     def test_negative_step1(self, make_files, make_folders, make_bad_file):
-        assert negative_checkout(
-            f"cd {data['FOLDER_OUT']}; 7z e {make_bad_file}.{data['extension']} {data['FOLDER_EXTRACT']} -y",
-            "ERROR"), "test1 FAIL"
+        assert ssh_negative_checkout(data["host"], data["user"], data["passwd"],
+                                     f"cd {data['FOLDER_OUT']}; 7z e {make_bad_file}.{data['extension']} {data['FOLDER_EXTRACT']} -y",
+                                     "ERROR"), "test1 FAIL"
 
     def test_negative_step2(self, make_files, make_folders, make_bad_file):
-        assert negative_checkout(
-            f"cd {data['FOLDER_OUT']}; 7z t {make_bad_file}.{data['extension']} -o{data['FOLDER_EXTRACT']} -y",
-            "ERROR"), "test2 FAIL"
+        assert ssh_negative_checkout(data["host"], data["user"], data["passwd"],
+                                     f"cd {data['FOLDER_OUT']}; 7z t {make_bad_file}.{data['extension']} -o{data['FOLDER_EXTRACT']} -y",
+                                     "ERROR"), "test2 FAIL"
 
     def test_step99(self):
         res = []
